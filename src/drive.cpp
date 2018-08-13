@@ -17,7 +17,7 @@ vector<resource_t> Drive::getResources(const string &path, const size_t limit, s
   {
     map<string, string> params
     {
-      {"path", http_client_->encodeUrl(path)},
+      {"path", path},
       // {"limit", "20"},
       {"offset", to_string(offset)},
       {"fields", "_embedded.items.resource_id,_embedded.items.path,_embedded.items.type,_embedded.items.name"}
@@ -44,7 +44,7 @@ vector<resource_t> Drive::getResources(const string &path, const size_t limit, s
 
 string Drive::getFileLink(const std::string &path) const
 {
-  json response = call("resources/download", map<string, string> {{"path", http_client_->encodeUrl(path)}});
+  json response = call("resources/download", map<string, string> {{"path", path}});
 
   return response["href"].get<string>();
 }
